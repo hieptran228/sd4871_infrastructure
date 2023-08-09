@@ -1,44 +1,52 @@
-resource "aws_iam_role" "bastion" {
-  name               = "bastion-${var.project}"
+# Create an IAM policy
+resource "aws_iam_policy" "jenkins_iam_policy" {
+  name = "jenkins-${var.project}-policy"
+
+  policy = data.aws_iam_policy_document.trust-policies-jenkins-system-manager.json
+}
+
+data "aws_iam_policy_document" "trust-policies-jenkins-system-manager" {
+  statement {
+    actions = [
+      "secretsmanager:GetSecretValue",
+      "ssm:GetParameter",
+      "ssm:GetParameters",
+      "ssm:GetParametersByPath"
+    ]
+
+    resources = ["*"]
+  }
+}
+
+# Create an IAM role
+resource "aws_iam_role" "jenkins_role" {
+  name               = "jenkins-${var.project}-001"
   path               = "/"
-  assume_role_policy = data.aws_iam_policy_document.trust-policies-bastion-assume-role.json
+  assume_role_policy = data.aws_iam_policy_document.trust-policies-jenkins-assume-role.json
 }
 
-resource "aws_iam_role" "bastion_2" {
-  name               = "bastion-${var.project}-0002"
-  path               = "/"
-  assume_role_policy = data.aws_iam_policy_document.trust-policies-bastion-assume-role.json
-}
-
-resource "aws_iam_role_policy" "bastion" {
-  name   = "bastion-role-${var.project}-policy"
-  role   = aws_iam_role.bastion.id
-  policy = data.aws_iam_policy_document.bastion-role-policy.json
-}
-
-data "aws_iam_policy_document" "trust-policies-bastion-assume-role" {
+data "aws_iam_policy_document" "trust-policies-jenkins-assume-role" {
   statement {
     actions = [
       "sts:AssumeRole"
     ]
 
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["ec2.amazonaws.com"]
     }
   }
 }
 
-# We define what bastion role can do here Identity-base policies
+# Attach the IAM policy to the IAM role
+resource "aws_iam_policy_attachment" "jenkins_role_policy_attachment" {
+  name       = "Policy Attachement"
+  policy_arn = aws_iam_policy.jenkins_iam_policy.arn
+  roles      = [aws_iam_role.jenkins_role.name]
+}
 
-data "aws_iam_policy_document" "bastion-role-policy" {
-  statement {
-    actions = [
-      "*"
-    ]
-
-    resources = [
-      "arn:aws:s3:::terraform-boostrap-hieptran-sd4871"
-    ]
-  }
+# Create an IAM instance profile
+resource "aws_iam_instance_profile" "jenkins_instance_profile" {
+  name = "jenkins-instance-profile"
+  role = aws_iam_role.jenkins_role.name
 }

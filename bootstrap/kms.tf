@@ -1,19 +1,19 @@
-resource "aws_kms_key" "eks_dev" {
-  description             = "KMS key for DEV EKS"
+resource "aws_kms_key" "network_state" {
+  description             = "KMS key for aws network state file"
   deletion_window_in_days = 14
 
-  policy = data.aws_iam_policy_document.eks_dev_kms_use.json
+  policy = data.aws_iam_policy_document.network_state_kms_use.json
 
   tags = module.labels.tags
 }
 
-resource "aws_kms_alias" "eks_dev" {
-  name          = "alias/eks-test"
-  target_key_id = aws_kms_key.eks_dev.key_id
-  depends_on    = [aws_kms_key.eks_dev]
+resource "aws_kms_alias" "network_state" {
+  name          = "alias/network-state"
+  target_key_id = aws_kms_key.network_state.key_id
+  depends_on    = [aws_kms_key.network_state]
 }
 
-data "aws_iam_policy_document" "eks_dev_kms_use" {
+data "aws_iam_policy_document" "network_state_kms_use" {
   statement {
     sid       = "Enable Permissions for DevOps"
     effect    = "Allow"
