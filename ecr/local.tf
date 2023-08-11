@@ -1,0 +1,3 @@
+locals {
+    repos = ["frontend", "backend"]
+}
