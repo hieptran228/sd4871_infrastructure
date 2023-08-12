@@ -16,4 +16,5 @@ variable "owner" {}
 
 variable "vpc-cidr-block-dev" {}
 
-variable "subnet-cidr-block-dev" {}
+variable "public-subnet-cidr-block-dev" {}
+variable "private-subnet-cidr-block-dev" {}

@@ -21,3 +21,15 @@ output "security-groups-ids" {
 output "security_group_ingress_rules_ids" {
   value = module.network_dev.security-group-rules-ingress-ids
 }
+
+output "dev-private-subnet-0" {
+  value = module.network_dev.private-subnet-0
+}
+
+output "dev-private-subnet-1" {
+  value = module.network_dev.private-subnet-1
+}
+
+output "dev-private-subnet-2" {
+  value = module.network_dev.private-subnet-2
+}

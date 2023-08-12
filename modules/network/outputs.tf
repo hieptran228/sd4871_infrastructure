@@ -6,6 +6,18 @@ output "public-subnet" {
   value = aws_subnet.public
 }
 
+output "private-subnet-0" {
+  value = aws_subnet.private[0]
+}
+
+output "private-subnet-1" {
+  value = aws_subnet.private[1]
+}
+
+output "private-subnet-2" {
+  value = aws_subnet.private[2]
+}
+
 output "route-table" {
   value = aws_route_table.public-crt.id
 }
