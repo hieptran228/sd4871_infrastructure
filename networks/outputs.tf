@@ -33,3 +33,7 @@ output "dev-private-subnet-1" {
 output "dev-private-subnet-2" {
   value = module.network_dev.private-subnet-2
 }
+
+output "db-subnet-group" {
+  value = module.network_dev.db-subnet-group
+}

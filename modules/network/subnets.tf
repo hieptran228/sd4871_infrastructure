@@ -26,3 +26,10 @@ resource "aws_subnet" "private" {
     }
   )
 }
+
+resource "aws_db_subnet_group" "private-db-subnet" {
+  name       = "${var.name}-db-subnet-group-${var.environment}"
+  subnet_ids = [aws_subnet.private[0].id, aws_subnet.private[1].id]
+
+  tags = var.tags
+}

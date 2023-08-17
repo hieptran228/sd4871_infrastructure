@@ -1,3 +1,3 @@
 locals {
-    repos = ["frontend", "backend"]
+    repos = ["frontend", "backend", "mongo"]
 }

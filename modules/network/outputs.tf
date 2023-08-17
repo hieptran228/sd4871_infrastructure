@@ -31,3 +31,7 @@ output "security-group-rules-ingress-ids" {
   #value = aws_vpc_security_group_ingress_rule.this
   value = { for k, v in aws_vpc_security_group_ingress_rule.this : k => v.id }
 }
+
+output "db-subnet-group" {
+  value = aws_db_subnet_group.private-db-subnet
+}
