@@ -5,7 +5,6 @@ private-subnet-cidr-block-dev = {
   0 = "10.0.48.0/20"
   1 = "10.0.64.0/20"
   2 = "10.0.80.0/20"
-  3 = "10.0.96.0/20"
 }
 name         = "network"
 project-name = "nashtech-hieptran-sd4871"

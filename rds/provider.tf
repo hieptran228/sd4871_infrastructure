@@ -5,10 +5,10 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket         = "terraform-boostrap-nashtech-devops-0002"
+    bucket         = "terraform-bootstrap-nashtech-devops-0002"
     key            = "rds.tfstate"
     region         = "ap-southeast-1"
-    dynamodb_table = "terraform-boostrap-nashtech-devops"
+    dynamodb_table = "terraform-bootstrap-nashtech-devops"
     profile        = "datton.nashtech.saml"
     encrypt        = true
     kms_key_id     = "fff758c9-658d-4a49-98c4-3fabf9b7384d"
@@ -18,7 +18,7 @@ terraform {
 data "terraform_remote_state" "bootstrap" {
   backend = "s3"
   config = {
-    bucket  = "terraform-boostrap-nashtech-devops-0002"
+    bucket  = "terraform-bootstrap-nashtech-devops-0002"
     key     = "terraform.tfstate"
     profile = "datton.nashtech.saml"
     region  = "ap-southeast-1"
@@ -30,7 +30,7 @@ data "terraform_remote_state" "network" {
   workspace = "dev"
 
   config = {
-    bucket  = "terraform-boostrap-nashtech-devops-0002"
+    bucket  = "terraform-bootstrap-nashtech-devops-0002"
     key     = "network.tfstate"
     profile = "datton.nashtech.saml"
     region  = "ap-southeast-1"

@@ -14,12 +14,12 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "terraform-boostrap-hieptran-sd4871-0001"
+    bucket         = "terraform-bootstrap-hieptran-sd4871-0001"
     key            = "terraform.tfstate"
     region         = "ap-southeast-1"
-    dynamodb_table = "terraform-boostrap-hieptran-sd4871"
+    dynamodb_table = "terraform-bootstrap-hieptran-sd4871"
     profile        = "default"
     encrypt        = true
-    kms_key_id     = "479d3649-f71b-4332-a4f9-354fcd45814d"
+    kms_key_id     = "fa7732b1-6ddb-4d62-9208-bfc94e4db2d7"
   }
 }
